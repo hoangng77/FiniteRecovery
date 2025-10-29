@@ -2,14 +2,21 @@ import numpy as np
 import pygame
 from environment import FaultyCartPoleEnv, EndlessCartPoleEnv
 
+# Fixed deterministic policy is a simple proportional-derivative controller, counteracting the changes in pole angle.
+# It only works for small angles and cannot recovers if pole falls over.
+
 def fixed_policy(state, Kp=3.0, Kd=1.0):
     x, x_dot, theta, theta_dot = state
     control_signal = Kp * theta + Kd * theta_dot
     return 1 if control_signal > 0 else 0
 
-def lqr_policy(state, K=np.array([-10.0, -1.0, 100.0, 10.0])):
+# Linear quadratic regulator (LQR) policy for balancing the pole around the upright position. Cannot swingup from downward position
+
+def lqr_policy(state, K=np.array([-10, -1, 100, 10])):
     control_signal = np.dot(K, state)
     return 1 if control_signal > 0 else 0
+
+# This is a hybrid swing-up and balancing policy. So it used energy to bring the pole up when it is far from upright, and once reach upright it will start balancing using LQR.
 
 def swingup_policy(state, K=np.array([-10, -1, 100, 10]), energy_gain=1.0):
     x, x_dot, theta, theta_dot = state
