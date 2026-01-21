@@ -1,14 +1,14 @@
-GitHub repo: https://github.com/hoangng77/FiniteRecovery
-Environment:
+**Environment:**
 TrainEnv is a customized CartPole environment designed for reinforcement learning with extreme initial pole angles and curriculum learning.
+
 It extends the standard CartPole with:
-Continuous actions in [-10, 10] to handle precise torque control, necessary for swing-up.
-Configurable initial pole angles via angle_sampler(), enabling curriculum stages.
-Flexible termination and success criteria: lenient for training, strict for evaluation.
-Observations [x, x_dot, cos(theta), sin(theta), theta_dot], which provide smooth, continuous representations of the pole angle for neural networks (avoiding wrap-around discontinuities).
+1. Continuous actions in [-10, 10] to handle precise torque control, necessary for swing-up.
+2. Configurable initial pole angles via angle_sampler(), enabling curriculum stages.
+3. Flexible termination and success criteria: lenient for training, strict for evaluation.
+4. Observations [x, x_dot, cos(theta), sin(theta), theta_dot], which provide smooth, continuous representations of the pole angle for neural networks (avoiding wrap-around discontinuities).
 → Using SAC is appropriate due to its continuous action support and exploration capabilities, making it suitable for learning this challenging control task.
 
-Code:
+**Code:**
 Environment initialization:
 def __init__(
         self,
