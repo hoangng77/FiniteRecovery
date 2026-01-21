@@ -23,15 +23,15 @@ def __init__(
         success_steps_required_train=20
     ):
         super().__init__(render_mode=render_mode)
-
+        
 Define the variables, force range being [-10, 10], each episode will have 500 steps maximum, termination angle is pi (pole fall straight down), we define success by:
-variation of 5 degree when evaluation
-variation of 15 degree when training
-can survive 50 steps consecutively while evaluation
-can survive 20 steps consecutively while training
+1. variation of 5 degree when evaluation
+2. variation of 15 degree when training
+3. can survive 50 steps consecutively while evaluation
+4. can survive 20 steps consecutively while training
 These can be changed in the future if we have a different approach.
 
-2. Reset environment:
+3. Reset environment:
 def reset(self, seed=None, options=None):
         # Small random perturbations for x, x_dot, theta_dot
         x = np.random.uniform(-0.05, 0.05)
